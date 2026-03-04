@@ -28,6 +28,7 @@ import com.startseva.student_material_design_startseva.data.Student
 import com.startseva.student_material_design_startseva.data.students
 import com.startseva.student_material_design_startseva.ui.theme.Student_Material_Design_StartsevaTheme
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Surface
 
 
@@ -82,20 +83,26 @@ fun StudentItem(
     student: Student,
     modifier: Modifier = Modifier
 ) {
-    Row(
+    Card(modifier = modifier) {
+        Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(dimensionResource(R.dimen.padding_small))
     ) {
         StudentIcon(student.imageResourceId)
         StudentInformation(student.name, student.age)
+        }
     }
 }
 @Composable
 fun StudentApp() {
-    LazyColumn {
-        items(students) {
-            StudentItem(it)
+    Scaffold { it ->
+        LazyColumn(contentPadding = it) {
+            items(students) {
+                StudentItem(it,
+                    modifier = Modifier
+                        .padding(dimensionResource(R.dimen.padding_small)))
+            }
         }
     }
 }
